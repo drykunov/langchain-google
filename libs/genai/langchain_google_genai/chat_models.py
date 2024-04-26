@@ -667,6 +667,7 @@ class ChatGoogleGenerativeAI(_BaseGoogleGenerativeAI, BaseChatModel):
             content=message,
             **params,
             generation_method=chat.send_message,
+            request_options={"timeout": self.timeout} if self.timeout else None,
         )
         return _response_to_result(response)
 
@@ -706,6 +707,7 @@ class ChatGoogleGenerativeAI(_BaseGoogleGenerativeAI, BaseChatModel):
             **params,
             generation_method=chat.send_message,
             stream=True,
+            request_options={"timeout": self.timeout} if self.timeout else None,
         )
         for chunk in response:
             _chat_result = _response_to_result(chunk, stream=True)
